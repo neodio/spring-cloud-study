@@ -1,4 +1,4 @@
-package zuul2;
+package secondservice;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

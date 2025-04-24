@@ -1,13 +1,13 @@
-package zuul2;
+package secondservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringCloudZuul2Application {
+public class GatewaySecondServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringCloudZuul2Application.class, args);
+        SpringApplication.run(GatewaySecondServiceApplication.class, args);
     }
 
 }

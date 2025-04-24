@@ -1,10 +1,10 @@
-package zuul2;
+package secondservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SpringCloudZuul2ApplicationTests {
+class GatewaySecondServiceApplicationTests {
 
     @Test
     void contextLoads() {
