@@ -8,11 +8,11 @@ https://inf.run/4n2P6
 
 ## 프로젝트별 설명
 
-| 프로젝트                   | 설명                     | 포트    | 비고                        |
+| 프로젝트                       | 설명                     | 포트    | 비고                        |
 |----------------------------|--------------------------|---------|-----------------------------|
+| gateway-first-service      | first-service            | 8081    |                             |
+| gateway-second-service     | second-service           | 8082    |                             |
 | spring-cloud-gateway       | 게이트웨이(메인)         | 8000    |                             |
 | spring-cloud-eureka        | 유레카 서버              | 8761    |                             |
 | spring-cloud-eureka-client | 유레카 클라이어트 예제   | 0(랜덤) |                             |
 | spring-cloud-zuul-service  | netflix zuul 예제        | 8000    | deprecated로 gateway로 대체 |
-| spring-cloud-zuul          | first-service            | 8081    |                             |
-| spring-cloud-zuul          | second-service           | 8082    |                             |
