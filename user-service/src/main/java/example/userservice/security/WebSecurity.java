@@ -49,6 +49,7 @@ public class WebSecurity {
 //        http.csrf(AbstractHttpConfigurer::disable);
 
         http.authorizeHttpRequests((authz) -> authz
+                    .requestMatchers(new AntPathRequestMatcher("/user-service/**")).permitAll()
                     .requestMatchers(new AntPathRequestMatcher("/actuator/**")).permitAll()
                     .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
                     .requestMatchers(new AntPathRequestMatcher("/users", "POST")).permitAll()
