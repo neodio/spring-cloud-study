@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/first-service")
-@RequiredArgsConstructor
 @Slf4j
+@RequiredArgsConstructor
 public class FirstServiceController {
 
     private final Environment env;
