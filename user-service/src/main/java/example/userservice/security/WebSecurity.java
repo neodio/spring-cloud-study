@@ -2,6 +2,7 @@ package example.userservice.security;
 
 import example.userservice.service.UserService;
 import java.util.function.Supplier;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -22,26 +23,21 @@ import org.springframework.security.web.util.matcher.IpAddressMatcher;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class WebSecurity {
-    private UserService userService;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-    private Environment env;
+    private final UserService userService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final Environment env;
 
     public static final String ALLOWED_IP_ADDRESS = "127.0.0.1";
     public static final String SUBNET = "/32";
     public static final IpAddressMatcher ALLOWED_IP_ADDRESS_MATCHER = new IpAddressMatcher(ALLOWED_IP_ADDRESS + SUBNET);
 
-    public WebSecurity(Environment env, UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.env = env;
-        this.userService = userService;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }
-
     @Bean
     protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
         // Configure AuthenticationManagerBuilder
         AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
-//        authenticationManagerBuilder.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder);
+        authenticationManagerBuilder.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder);
 
         AuthenticationManager authenticationManager = authenticationManagerBuilder.build();
 
@@ -49,7 +45,7 @@ public class WebSecurity {
 //        http.csrf(AbstractHttpConfigurer::disable);
 
         http.authorizeHttpRequests((authz) -> authz
-                    .requestMatchers(new AntPathRequestMatcher("/user-service/**")).permitAll()
+                    .requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
                     .requestMatchers(new AntPathRequestMatcher("/actuator/**")).permitAll()
                     .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
                     .requestMatchers(new AntPathRequestMatcher("/users", "POST")).permitAll()
@@ -62,7 +58,7 @@ public class WebSecurity {
                     .requestMatchers("/**").access(
                         new WebExpressionAuthorizationManager(
                             "hasIpAddress('127.0.0.1') or hasIpAddress('::1') or " +
-                                "hasIpAddress('172.30.1.44') or hasIpAddress('172.30.1.44/32')")) // host pc ip address
+                                "hasIpAddress('10.106.22.166') or hasIpAddress('10.106.22.166/32')")) // host pc ip address
                     .anyRequest().authenticated()
             )
             .authenticationManager(authenticationManager)
