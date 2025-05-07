@@ -3,10 +3,13 @@ package example.userservice.service;
 import example.userservice.dto.UserDto;
 import example.userservice.entity.UserEntity;
 import example.userservice.repository.UserRepository;
+import example.userservice.vo.ResponseOrder;
+import java.util.ArrayList;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -29,5 +32,27 @@ public class UserServiceImpl implements UserService {
         UserDto returnUserDto = modelMapper.map(userEntity, UserDto.class);
 
         return returnUserDto;
+    }
+
+    @Override
+    public UserDto getUserByUserId(String userId) {
+        UserEntity userEntity = userRepository.findByUserId(userId);
+        
+        if(userEntity == null) {
+            throw new UsernameNotFoundException("user not fonud");
+        }
+
+        ModelMapper modelMapper = new ModelMapper();
+        UserDto userDto = modelMapper.map(userEntity, UserDto.class);
+
+        ArrayList<ResponseOrder> orders = new ArrayList<>();
+        userDto.setOrders(orders);
+
+        return userDto;
+    }
+
+    @Override
+    public Iterable<UserEntity> getUserByAll() {
+        return userRepository.findAll();
     }
 }
