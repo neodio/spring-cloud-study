@@ -14,48 +14,42 @@ import reactor.core.publisher.Mono;
 @Component
 @Slf4j
 public class LoggingFilter extends AbstractGatewayFilterFactory<LoggingFilter.Config> {
-
     public LoggingFilter() {
         super(Config.class);
     }
 
-    @Override
-    public GatewayFilter apply(Config config) {
+//    @Override
+//    public GatewayFilter apply(Config config) {
 //        return (exchange, chain) -> {
 //            ServerHttpRequest request = exchange.getRequest();
 //            ServerHttpResponse response = exchange.getResponse();
 //
-//            log.info("Global PRE baseMessage: {}", config.getBaseMessage());
-//
-//            if (config.isPreLogger()) {
-//                log.info("Global Filter Start: request id -> {}", request.getId());
-//            }
+//            log.info("Logging PRE filter: request id -> {}", request.getId());
 //
 //            // Custom Post Filter
 //            return chain.filter(exchange).then(Mono.fromRunnable(() -> {
-//                if (config.isPostLogger()) {
-//                    log.info("Global Filter End: response code -> {}", response.getStatusCode());
-//                }
+//                log.info("Logging POST filter: response code -> {}", response.getStatusCode());
 //            }));
 //        };
-        OrderedGatewayFilter filter = new OrderedGatewayFilter((exchange, chain) -> {
+//    }
+
+    /* 우선 순위를 갖는 Filter 적용 */
+    @Override
+    public GatewayFilter apply(Config config) {
+        return new OrderedGatewayFilter((exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest();
             ServerHttpResponse response = exchange.getResponse();
 
-            log.info("Logging PRE baseMessage: {}", config.getBaseMessage());
-
+            log.info("Logging Filter baseMessage: {}", config.getBaseMessage());
             if (config.isPreLogger()) {
                 log.info("Logging PRE Filter: request id -> {}", request.getId());
             }
-
-            // Custom Post Filter
-            return chain.filter(exchange).then(Mono.fromRunnable(() -> {
+            return chain.filter(exchange).then(Mono.fromRunnable(()->{
                 if (config.isPostLogger()) {
                     log.info("Logging POST Filter: response code -> {}", response.getStatusCode());
                 }
             }));
-        }, Ordered.LOWEST_PRECEDENCE);
-        return filter;
+        }, Ordered.HIGHEST_PRECEDENCE);
     }
 
     @Data
