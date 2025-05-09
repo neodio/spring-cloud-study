@@ -12,7 +12,7 @@ spring:
 #        native:
 #          search-locations: file:////Users/greencar/repo/github/spring-cloud-gateway-study
         git: #default
-          uri: https://github.com/joneconsulting/spring-cloud-config
+          uri: https://github.com/neodio/spring-cloud-config-study
           default-label: master
         #          username: <github-id>
         #          password: <gihub-accessToken>
