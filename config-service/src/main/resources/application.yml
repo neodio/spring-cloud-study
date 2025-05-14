@@ -13,15 +13,10 @@ spring:
 #          search-locations: file:////Users/greencar/repo/github/spring-cloud-gateway-study
         git: #default
           uri: https://github.com/neodio/spring-cloud-config-study
-          default-label: master
+          default-label: main
         #          username: <github-id>
         #          password: <gihub-accessToken>
         bootstrap: true
-#  rabbitmq:
-#    host: 127.0.0.1
-#    port: 5672
-#    username: guest
-#    password: guest
 
 management:
   endpoints:

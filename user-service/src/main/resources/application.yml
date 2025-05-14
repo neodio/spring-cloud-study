@@ -40,7 +40,7 @@ greeting:
 
 logging:
   level:
-    example: debug
+    example.userservice: debug
 
 #  pattern:
 #    correlation: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
