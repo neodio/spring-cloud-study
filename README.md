@@ -15,7 +15,7 @@ https://inf.run/4n2P6
 | gateway-second-service     | second-service 예제       | 8082    | netflix zuul 사용 예제2       |
 | spring-cloud-gateway       | 게이트웨이(메인)             | 8000    |                             |
 | spring-cloud-eureka        | 유레카 서버                 | 8761    |                             |
-| spring-cloud-eureka-client | 유레카 클라이어트 예제         | 0(랜덤)  |                             |
+| spring-cloud-eureka-client | 유레카 클라이어트 예제         | 0(랜덤)  | 유레카 클라이어트 예제           |
 | spring-cloud-zuul-service  | netflix zuul 예제         | 8000    | deprecated로 gateway로 대체   |
 | user-service               | 사용자 서비스               | 8001    |                             |
 | order-service              | 주문 서비스                 | 8002    |                             |
