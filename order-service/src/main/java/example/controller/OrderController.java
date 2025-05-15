@@ -2,6 +2,8 @@ package example.controller;
 
 import example.dto.OrderDto;
 import example.entity.OrderEntity;
+import example.kafka.KafkaProducer;
+import example.kafka.OrderProducer;
 import example.service.OrderService;
 import example.vo.RequestOrder;
 import example.vo.ResponseOrder;
@@ -29,9 +31,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderController {
     private final Environment env;
     private final OrderService orderService;
-//    private final KafkaProducer kafkaProducer;
-
-//    private final OrderProducer orderProducer;
+    private final KafkaProducer kafkaProducer;
+    private final OrderProducer orderProducer;
 
     @GetMapping("/health-check")
     public String status() {
@@ -50,15 +51,18 @@ public class OrderController {
         OrderDto orderDto = mapper.map(orderDetails, OrderDto.class);
         orderDto.setUserId(userId);
         /* jpa */
-        OrderDto createdOrder = orderService.createOrder(orderDto);
-        ResponseOrder responseOrder = mapper.map(createdOrder, ResponseOrder.class);
+//        OrderDto createdOrder = orderService.createOrder(orderDto);
+//        ResponseOrder responseOrder = mapper.map(createdOrder, ResponseOrder.class);
 
         /* kafka */
         orderDto.setOrderId(UUID.randomUUID().toString());
         orderDto.setTotalPrice(orderDetails.getQty() * orderDetails.getUnitPrice());
 
         /* send this order to the kafka */
-//        kafkaProducer.send("example-catalog-topic", orderDto);
+        kafkaProducer.send("example-catalog-topic", orderDto);
+        orderProducer.send("orders", orderDto);
+
+        ResponseOrder responseOrder = mapper.map(orderDto, ResponseOrder.class);
 
         log.info("After added orders data");
         return ResponseEntity.status(HttpStatus.CREATED).body(responseOrder);

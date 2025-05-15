@@ -40,3 +40,7 @@ eureka:
 logging:
   level:
     example: debug
+
+# kafka
+kafka:
+  bootstrap-address: localhost:29092,localhost:39092,localhost:49092

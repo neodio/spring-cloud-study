@@ -21,9 +21,42 @@ https://inf.run/4n2P6
 | order-service              | 주문 서비스                 | 8002    |                             |
 | catalog-service            | 카탈로그 서비스              | 8003    |                             |
 
+## Local 개발환경을 위한 docker compose
+- config-service 경로
+- 실행방법
+  ```
+  $ cd docker && docker-compose up -d
+  ```
+- 도커 종료방법
+  ```
+  $ cd docker && docker-compose down -v
+  ```
+
 ## h2 console을 이용한 db접속
 ### h2
 <img src="image/1.png"  width="600"/>
 
+### h2(user-service)
+http://localhost:8001/h2-console
+
+### h2(order-service)
+http://localhost:8002/h2-console
+
+### h2(catalog-service)
+http://localhost:8003/h2-console
+
 ### mariaDb
 <img src="image/2.png"  width="600"/>
+
+## kafka 관리 툴
+### kafka manager(CMAK)
+http://localhost:9000/
+
+클러스터 추가 필요
+<img src="image/3.png"  width="600"/>
+
+### kafka ui
+http://localhost:8085/
+
+### Offset Explorer3
+<img src="image/4.png"  width="600"/>

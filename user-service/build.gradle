@@ -38,6 +38,8 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 
+    implementation 'org.mariadb.jdbc:mariadb-java-client:3.5.3'
+
     // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api
     implementation 'io.jsonwebtoken:jjwt-api:0.12.6'
     // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-impl
