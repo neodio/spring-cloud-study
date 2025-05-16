@@ -61,3 +61,49 @@ http://localhost:8085/
 
 ### Offset Explorer3
 <img src="image/4.png"  width="600"/>
+
+## kafka connect rest API
+### kafka sink connector 등록
+```
+POST
+http://localhost:8083/connectors/
+{
+  "name":"my-order-sink-connect",
+  "config":{
+      "connector.class":"io.confluent.connect.jdbc.JdbcSinkConnector",
+      "connection.url":"jdbc:mariadb://localhost:3306/mydb",
+      "connection.user":"user",
+      "connection.password":"1234",
+      "auto.create":"true",
+      "auto.evolve":"true",
+      "delete.enabled":"false",
+      "tasks.max":"1",
+      "topics":"orders"
+  }
+}
+```
+
+### kafka connector 조회
+```
+GET
+http://localhost:8083/connectors/
+```
+
+### kafka connector 삭제
+```
+DELETE
+http://localhost:8083/connectors/
+```
+
+### kafka connector 플러그인 조회
+```
+GET
+http://localhost:8083/connector-plugins
+```
+
+### kafka connector 상태 조회
+```
+GET
+http://localhost:8083/connectors/{커넥터 이름}/status
+http://localhost:8083/connectors/my-order-sink-connect/status
+```
