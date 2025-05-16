@@ -1,3 +1,10 @@
+-- CREATE DATABASE IF NOT EXISTS mydb CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- User
+-- DROP USER IF EXISTS 'user'@'%';
+-- CREATE USER 'user'@'%' IDENTIFIED BY 'user';
+-- GRANT ALL PRIVILEGES ON mydb.* TO 'user'@'%';
+-- FLUSH PRIVILEGES;
 
 create table orders (
     id int auto_increment primary key,

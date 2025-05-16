@@ -10,8 +10,8 @@ services:
       - ./init.d/:/docker-entrypoint-initdb.d/
     environment:
       TZ: Asia/Seoul
-#      MARIADB_USER: 아이디
-#      MARIADB_PASSWORD: 비밀번호
+      MARIADB_USER: user
+      MARIADB_PASSWORD: 1234
       MARIADB_ALLOW_EMPTY_PASSWORD: 'true'
 #      MARIADB_ROOT_PASSWORD: 루트 계정 비밀번호
       MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 'true'
@@ -99,7 +99,9 @@ services:
       CONNECT_INTERNAL_VALUE_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
       CONNECT_REST_PORT: 8083
       CONNECT_LOG4J_ROOT_LOGLEVEL: INFO
-      CONNECT_PLUGIN_PATH: "/Users/greencar/repo/github/spring-cloud-study/config-service/docker-spring-cloud/kafka-connect/jars" #절대경로
+      CONNECT_PLUGIN_PATH: "/usr/share/java,/etc/kafka-connect/jars"
+    volumes:
+      - ./kafka-connect/jars:/etc/kafka-connect/jars #jars파일들 volume을 통하여 사용
     depends_on:
       - zookeeper-1
       - kafka-1

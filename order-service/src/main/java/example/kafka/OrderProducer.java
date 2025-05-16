@@ -9,13 +9,16 @@ import example.dto.Payload;
 import example.dto.Schema;
 import java.util.Arrays;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class OrderProducer {
-//    private KafkaTemplate<String, String> kafkaTemplate;
+    private final KafkaTemplate<String, String> kafkaTemplate;
 
     List<Field> fields = Arrays.asList(new Field("string", true, "order_id"),
         new Field("string", true, "user_id"),
@@ -29,11 +32,6 @@ public class OrderProducer {
         .optional(false)
         .name("orders")
         .build();
-
-//    @Autowired
-//    public OrderProducer(KafkaTemplate<String, String> kafkaTemplate) {
-//        this.kafkaTemplate = kafkaTemplate;
-//    }
 
     public OrderDto send(String topic, OrderDto orderDto) {
         Payload payload = Payload.builder()
@@ -55,7 +53,7 @@ public class OrderProducer {
             ex.printStackTrace();
         }
 
-//        kafkaTemplate.send(topic, jsonInString);
+        kafkaTemplate.send(topic, jsonInString);
         log.info("Order Producer sent data from the Order microservice: " + kafkaOrderDto);
 
         return orderDto;
