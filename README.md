@@ -46,7 +46,7 @@ http://localhost:8002/h2-console
 http://localhost:8003/h2-console
 
 ### mariaDb
-<img src="image/2.png"  width="600"/>
+<img src="image/2.png"  width="500"/>
 
 ## kafka 관리 툴
 ### kafka manager(CMAK)
@@ -54,13 +54,13 @@ http://localhost:9000/
 
 클러스터 추가 필요
 <br/>
-<img src="image/3.png"  width="600"/>
+<img src="image/3.png"  width="500"/>
 
 ### kafka ui
 http://localhost:8085/
 
 ### Offset Explorer3
-<img src="image/4.png"  width="600"/>
+<img src="image/4.png"  width="500"/>
 
 ## kafka connect rest API
 ### kafka sink connector 등록
