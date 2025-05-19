@@ -5,7 +5,6 @@ import example.userservice.dto.UserDto;
 import example.userservice.entity.UserEntity;
 import example.userservice.repository.UserRepository;
 import example.userservice.vo.ResponseOrder;
-import feign.FeignException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -13,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,6 +32,7 @@ public class UserServiceImpl implements UserService {
 
     private final Environment env;
 //    private final RestTemplate restTemplate;
+    private final CircuitBreakerFactory circuitBreakerFactory;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -94,20 +96,21 @@ public class UserServiceImpl implements UserService {
 
         /* Using a feign client */
         /* #2 Feign exception handling */
-        try {
+//        try {
 //            ResponseEntity<List<ResponseOrder>> _ordersList = orderServiceClient.getOrders(userId);
 //            ordersList = _ordersList.getBody();
-            ordersList = orderServiceClient.getOrders(userId);
-        } catch (FeignException ex) {
-            log.error(ex.getMessage());
-        }
+//            ordersList = orderServiceClient.getOrders(userId);
+//        } catch (FeignException ex) {
+//            log.error(ex.getMessage());
+//        }
 
         /* #3-1 ErrorDecoder */
+        log.info("Before call orders microservice");
 //        ordersList = orderServiceClient.getOrders(userId);
-//        CircuitBreaker circuitBreaker = circuitBreakerFactory.create("circuitBreaker1");
+        CircuitBreaker circuitBreaker = circuitBreakerFactory.create("circuitBreaker1");
 //        CircuitBreaker circuitBreaker2 = circuitBreakerFactory.create("circuitBreaker2");
-//        ordersList = circuitBreaker.run(() -> orderServiceClient.getOrders(userId),
-//                throwable -> new ArrayList<>());
+        ordersList = circuitBreaker.run(() -> orderServiceClient.getOrders(userId),
+                throwable -> new ArrayList<>());
         /* #3-2 ErrorDecoder for catalog-service */
 //        List<ResponseCatalog> catalogList = catalogServiceClient.getCatalogs();
 

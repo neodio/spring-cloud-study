@@ -12,17 +12,17 @@ spring:
         web-allow-others: true
       path: /h2-console
   # datasource Setting Info(H2)
-#  datasource:
-#    url: jdbc:h2:mem:testdb
-#    username: sa
-#    password:
-#    driver-class-name: org.h2.Driver
-  # datasource Setting Info(mariaDb)
   datasource:
-    url: jdbc:mariadb://localhost:3306/mydb
-    username: user
-    password: 1234
-    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  # datasource Setting Info(mariaDb)
+#  datasource:
+#    url: jdbc:mariadb://localhost:3306/mydb
+#    username: user
+#    password: 1234
+#    driver-class-name: org.mariadb.jdbc.Driver
   # jpa Setting Info
   jpa:
     hibernate:
@@ -52,3 +52,14 @@ kafka:
   bootstrap-address: localhost:29092,localhost:39092,localhost:49092
   compression-type: zstd
   linger-ms: 20
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+    propagation:
+      consume: B3
+      produce: b3_multi
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans

@@ -47,20 +47,19 @@ logging:
 #    correlation: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
 #
 management:
-#  tracing:
-#    sampling:
-#      probability: 1.0
-#    propagation:
-#      consume: B3
-#      produce: B3
-#  zipkin:
-#    tracing:
-#      endpoint: http://localhost:9411/api/v2/spans
-#
+  tracing:
+    sampling:
+      probability: 1.0
+    propagation:
+      consume: B3
+      produce: b3_multi
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: refresh, health, beans, busrefresh, info, metrics, prometheus
 
 #gateway:
 #  ip: 10.204.136.204

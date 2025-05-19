@@ -147,6 +147,30 @@ services:
       - kafka-3
     networks:
       - kafka_net
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+#    environment:
+#      - STORAGE_TYPE=mysql
+#      - MYSQL_DB=zipkin
+#      - MYSQL_USER=zipkin
+#      - MYSQL_PASS=zipkin
+#      - MYSQL_HOST=zipkin-mysql
+#      - MYSQL_TCP_PORT=3306
+    ports:
+      - "9411:9411"
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
 
 networks:
   kafka_net:

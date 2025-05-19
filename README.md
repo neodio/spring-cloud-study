@@ -34,7 +34,7 @@ https://inf.run/4n2P6
 
 ## h2 console을 이용한 db접속
 ### h2
-<img src="image/1.png"  width="600"/>
+<img src="image/1.png"  width="500"/>
 
 ### h2(user-service)
 http://localhost:8001/h2-console
@@ -46,7 +46,7 @@ http://localhost:8002/h2-console
 http://localhost:8003/h2-console
 
 ### mariaDb
-<img src="image/2.png"  width="600"/>
+<img src="image/2.png"  width="500"/>
 
 ## kafka 관리 툴
 ### kafka manager(CMAK)
@@ -54,13 +54,13 @@ http://localhost:9000/
 
 클러스터 추가 필요
 <br/>
-<img src="image/3.png"  width="600"/>
+<img src="image/3.png"  width="500"/>
 
 ### kafka ui
 http://localhost:8085/
 
 ### Offset Explorer3
-<img src="image/4.png"  width="600"/>
+<img src="image/4.png"  width="500"/>
 
 ## kafka connect rest API
 ### kafka sink connector 등록
@@ -107,3 +107,18 @@ GET
 http://localhost:8083/connectors/{커넥터 이름}/status
 http://localhost:8083/connectors/my-order-sink-connect/status
 ```
+
+### zipkin server
+http://localhost:9411/
+
+### prometheus
+http://localhost:9090/
+
+### grafana
+http://localhost:3000/
+
+### grafana 프로메테우스 데이터소스 설정
+<img src="image/5.png"  width="500"/>
+
+### spring cloud replacement
+<img src="image/replacement.png"  width="600"/>
