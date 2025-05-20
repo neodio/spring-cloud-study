@@ -25,11 +25,11 @@ https://inf.run/4n2P6
 - config-service 경로
 - 실행방법
   ```
-  $ cd docker && docker-compose up -d
+  $ cd docker-spring-cloud && docker-compose up -d
   ```
 - 도커 종료방법
   ```
-  $ cd docker && docker-compose down -v
+  $ cd docker-spring-cloud && docker-compose down -v
   ```
 
 ## h2 console을 이용한 db접속
