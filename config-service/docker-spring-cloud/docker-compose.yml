@@ -16,8 +16,8 @@ services:
 #      MARIADB_ROOT_PASSWORD: 루트 계정 비밀번호
       MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 'true'
       MARIADB_DATABASE: mydb
-#    networks:
-#      - 네트워크명
+    networks:
+      - kafka_net
     restart: always
 
   zookeeper-1:
