@@ -270,17 +270,17 @@ enterfive/gateway-service:1.0
 ### zipkin 도커 run
 ```
 docker run -d -p 9411:9411 \
- --network ecommerce-network \
- --name zipkin \
- openzipkin/zipkin
+--network ecommerce-network \
+--name zipkin \
+openzipkin/zipkin
 ```
 
 ### prometheus 도커 run
 ```
- --network ecommerce-network \
- --name prometheus \
- -v /Users/greencar/repo/github/spring-cloud-study/config-service/docker-spring-cloud/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml \
- prom/prometheus
+--network ecommerce-network \
+--name prometheus \
+-v /Users/greencar/repo/github/spring-cloud-study/config-service/docker-spring-cloud/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml \
+prom/prometheus
 ```
 
 ### grafana 도커 run
@@ -288,4 +288,75 @@ docker run -d -p 9411:9411 \
  --network ecommerce-network \
  --name grafana \
  grafana/grafana
+```
+
+### user-service 도커 이미지 생성할 jar 파일 생성
+```
+./gradlew bootJar
+
+docker build --tag enterfive/user-service:1.0 .
+```
+
+### user-service 도커 push
+```
+docker push enterfive/user-service:1.0
+```
+
+### user-service 도커 run
+```
+docker run -d --network ecommerce-network \
+--name user-service \
+-e "spring.cloud.config.uri=http://config-service:8888" \
+-e "management.zipkin.tracing.endpoint=http://zipkin:9411" \
+-e "eureka.client.serviceUrl.defaultZone=http://spring-cloud-eureka:8761/eureka/" \
+-e "logging.file=/api-logs/users-ws.log" \
+enterfive/user-service:1.0
+```
+
+### user-service 도커 log 확인
+```
+docker logs -f user-service
+```
+
+### order-service 도커 이미지 생성할 jar 파일 생성
+```
+./gradlew bootJar
+
+docker build --tag enterfive/order-service:1.0 .
+```
+
+### order-service 도커 push
+```
+docker push enterfive/order-service:1.0
+```
+
+### order-service 도커 run
+```
+docker run -d --network ecommerce-network \
+--name order-service \
+-e "management.zipkin.tracing.endpoint=http://zipkin:9411" \
+-e "eureka.client.serviceUrl.defaultZone=http://spring-cloud-eureka:8761/eureka/" \
+-e "logging.file=/api-logs/orders-ws.log" \
+enterfive/order-service:1.0
+```
+
+### catalog-service 도커 이미지 생성할 jar 파일 생성
+```
+./gradlew bootJar
+
+docker build --tag enterfive/catalog-service:1.0 .
+```
+
+### catalog-service 도커 push
+```
+docker push enterfive/catalog-service:1.0
+```
+
+### catalog-service 도커 run
+```
+docker run -d --network ecommerce-network \
+--name catalog-service \
+-e "eureka.client.serviceUrl.defaultZone=http://spring-cloud-eureka:8761/eureka/" \
+-e "logging.file=/api-logs/catalogs-ws.log" \
+enterfive/catalog-service:1.0
 ```
